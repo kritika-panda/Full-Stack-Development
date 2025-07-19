@@ -1,25 +1,26 @@
+Kritika PandaKritika Panda  11:34 AM
 Step 1: Install Prerequisites
 Make sure you have the following installed on your system:
 ToolInstall Command / Link
 npm
 Comes bundled with
 Expo CLInpm install -g expo-cli
-:bulb: To verify installation, run node -v, npm -v, and expo -V in your terminal.
-:test_tube: Step 2: Initialize Your Expo Project
+  To verify installation, run node -v, npm -v, and expo -V in your terminal.
+  Step 2: Initialize Your Expo Project
 bash
 npx create-expo-app CaseEscalationApp
 cd CaseEscalationApp
 npm start
-:mag: This launches Expo DevTools in your browser. You can scan the QR code using the Expo Go app on your phone to preview your app.
-:toolbox: Step 3: Install Dependencies
+  This launches Expo DevTools in your browser. You can scan the QR code using the Expo Go app on your phone to preview your app.
+  Step 3: Install Dependencies
 Run the following in your project directory:
 bash
 npm install axios redux react-redux @reduxjs/toolkit @react-native-picker/picker
 These packages will help with:
-axios: Making API calls
-redux & @reduxjs/toolkit: State management
-@react-native-picker/picker: Dropdown fields like Priority, Escalation Type, etc.
-:card_index_dividers: Step 4: Create Folder Structure
+•	axios: Making API calls
+•	redux & @reduxjs/toolkit: State management
+•	@react-native-picker/picker: Dropdown fields like Priority, Escalation Type, etc.
+  Step 4: Create Folder Structure
 Inside your project:
 /CaseEscalationApp
 │
@@ -29,154 +30,142 @@ Inside your project:
 │   ├── /api               # API layer (submitCase endpoint)
 │   └── /screens           # CaseFormScreen.js
 Now that your base is ready, I’ll walk you through the next steps:
-Set up Redux store and slice
-Build the first UI block with inputs and dropdowns
-
-
-Kritika Panda
-  11:58 AM
+•	Set up Redux store and slice
+•	Build the first UI block with inputs and dropdowns
+ 
+Kritika PandaKritika Panda  11:58 AM
 npm create vite@latest case-escalation-form -- --template react
 cd case-escalation-form
 npm install
 npm install axios redux react-redux @reduxjs/toolkit
 npm run dev
 11:59
+Kritika Panda
 React -> JavaScript+SWC
 11:59
+Kritika Panda
 Choose: JavaScript + SWC
 Why?
-SWC (Speedy Web Compiler) gives you drastically faster dev/build times than Babel
-It works seamlessly behind the scenes—you still write plain .js or .jsx files
-It's officially supported in Vite and is future-proof as more teams move away from Babel
+•	SWC (Speedy Web Compiler) gives you drastically faster dev/build times than Babel
+•	It works seamlessly behind the scenes—you still write plain .js or .jsx files
+•	It's officially supported in Vite and is future-proof as more teams move away from Babel
 When not to choose it:
 Only skip + SWC if you're targeting very old browsers or integrating with legacy build tools—but for your form app (and a future PBC workflow), JavaScript + SWC is optimal.
 Once you select that option, I’ll help you:
-Structure the project
-Set up your first form page
-Add Tailwind or CSS modules if you'd like styling help too
-
-
-Kritika Panda
-  12:14 PM
+•	Structure the project
+•	Set up your first form page
+•	Add Tailwind or CSS modules if you'd like styling help too
+ 
+Kritika PandaKritika Panda  12:14 PM
 npx create-react-app case-escalation-form
 cd case-escalation-form
 npm install axios redux react-redux @reduxjs/toolkit
 npm install react-toastify
 npm install react-router-dom
 (edited)
-
-
-Kritika Panda
-  1:02 PM
+ 
+Kritika PandaKritika Panda  1:02 PM
 for each section create microservices
 Absolutely, Kritika—this is a smart move if you want to eventually scale the application and maintain separation of concerns. Let’s outline how to structure microservices that map directly to each major section of your escalation form.
-:bricks: Microservices Architecture for Escalation Form
+  Microservices Architecture for Escalation Form
 Each form section can be modeled as a standalone microservice with its own database schema, validation logic, and API endpoints.
-:small_blue_diamond: 1. Submitter Service
+  1. Submitter Service
 Handles info about the person submitting the case.
 FeatureValueEndpointPOST /api/submittersPayload{ submittedBy, submitterEmail, submissionDate, priority, escalationType }StoragePostgreSQL or MongoDB table: submittersService Namesubmitter-service
-:small_blue_diamond: 2. Product & Plan Service
+  2. Product & Plan Service
 Manages details about the product and plan associated with the case.
 FeatureValueEndpointPOST /api/product-planPayload{ caseNumber, productName, planType, coverageStartDate, coverageEndDate }Storageproduct_plan tableService Nameproduct-plan-service
-:small_blue_diamond: 3. Member Info Service
+  3. Member Info Service
 Handles patient/member details—could be reused in future applications as a separate identity service.
 FeatureValueEndpointPOST /api/member-infoPayload{ memberFirstName, memberLastName, dateOfBirth, memberId, groupNumber, memberEmail, zipCode, confirmationCode, rallyId }Storagemembers tableService Namemember-info-service
-:globe_with_meridians: How to Connect Them
-Use API Gateway or GraphQL Gateway to orchestrate requests.
-Each service can publish events (e.g., via Kafka or RabbitMQ) to signal case creation/update.
-Authentication can be handled by a shared identity/auth service.
+  How to Connect Them
+•	Use API Gateway or GraphQL Gateway to orchestrate requests.
+•	Each service can publish events (e.g., via Kafka or RabbitMQ) to signal case creation/update.
+•	Authentication can be handled by a shared identity/auth service.
 Bonus: Composing Services
 You could use an orchestrator service (like case-aggregator) that listens to each of the microservices and links the records under a master caseId.
 Would you like me to scaffold the Express backend for these services using folders like submitter-service, product-plan-service, etc.? Or set up a Postman collection and Swagger spec to simulate them locally first?
-We can make this production-grade, one piece at a time :muscle::jigsaw:
+We can make this production-grade, one piece at a time   
 1:02
-:white_check_mark: React (JS)
-:white_check_mark: Redux (for form state management)
-:white_check_mark: Spring Boot (backend APIs)
-:white_check_mark: PostgreSQL (persistent storage)
-
-
 Kritika Panda
-  5:51 PM
+  React (JS)
+  Redux (for form state management)
+  Spring Boot (backend APIs)
+  PostgreSQL (persistent storage)
+ 
+Kritika PandaKritika Panda  5:51 PM
 Next Phase: Backend Integration (Spring Boot + PostgreSQL)
 Let’s break it down into actionable sprints:
-:1234: StepFeatureWhat We’ll Build:one:Spring Boot SetupProject skeleton with dependencies (Spring Web, JPA, PostgreSQL):two:Entity + Table MappingEscalationCase class and database schema:three:REST API EndpointPOST /cases to accept form data and auto-generate caseNumber:four:Connect Frontend Form to BackendAxios/fetch integration with loading + success toast:five:Optional: Submit Success Page With IDRedirect to a confirmation screen showing generated case number:six:Optional: GET Route for Admin RetrievalFetch submitted cases for admin/reporting dashboard
-
-
-Kritika Panda
-  8:04 PM
+  StepFeatureWhat We’ll Build Spring Boot SetupProject skeleton with dependencies (Spring Web, JPA, PostgreSQL) Entity + Table MappingEscalationCase class and database schema REST API EndpointPOST /cases to accept form data and auto-generate caseNumber Connect Frontend Form to BackendAxios/fetch integration with loading + success toast Optional: Submit Success Page With IDRedirect to a confirmation screen showing generated case number Optional: GET Route for Admin RetrievalFetch submitted cases for admin/reporting dashboard
+ 
+Kritika PandaKritika Panda  8:04 PM
 Import Spring Boot Project into Eclipse
-:white_check_mark: 1. Unzip the Folder
+  1. Unzip the Folder
 Unzip the .zip you downloaded from [start.spring.io] — it should contain folders like src, pom.xml, and src/main/java.
-:white_check_mark: 2. Open Eclipse & Choose a Workspace
+  2. Open Eclipse & Choose a Workspace
 Launch Eclipse IDE and select your desired workspace directory when prompted.
-:white_check_mark: 3. Import the Project
+  3. Import the Project
 If it’s a Maven project:
-Click File > Import
-Choose: Existing Maven Projects under Maven
-Click Next
-Navigate to the unzipped folder and select it
-Eclipse should detect pom.xml. Click Finish
+1.	Click File > Import
+2.	Choose: Existing Maven Projects under Maven
+3.	Click Next
+4.	Navigate to the unzipped folder and select it
+5.	Eclipse should detect pom.xml. Click Finish
 If it’s a Gradle project:
-Click File > Import
-Choose Gradle > Existing Gradle Project
-Click Next, then locate the root folder
-Click Finish
-:white_check_mark: 4. Wait for Dependencies to Load
+1.	Click File > Import
+2.	Choose Gradle > Existing Gradle Project
+3.	Click Next, then locate the root folder
+4.	Click Finish
+  4. Wait for Dependencies to Load
 Eclipse will download dependencies automatically in the background. You might see a progress bar in the bottom right. Once done:
-You should see your src/main/java and src/main/resources
-application.properties will be under resources
-Your main class (e.g., CaseformBackendApplication.java) should have a green "play" icon
-:arrow_forward: 5. Run It
+•	You should see your src/main/java and src/main/resources
+•	application.properties will be under resources
+•	Your main class (e.g., CaseformBackendApplication.java) should have a green "play" icon
+  5. Run It
 Right-click the main class → Run As > Spring Boot App
 Tip: If Spring Boot App doesn't show up, try Run As > Java Application, then add Spring Boot DevTools later.
-
-
-Kritika Panda
-  8:58 PM
+ 
+Kritika PandaKritika Panda  8:58 PM
 tep 1: Install Maven
-Go to the official download page: :point_right:
-Download the binary zip archive for Windows (e.g., apache-maven-3.9.x-bin.zip)
-Extract it to a folder like: C:\Program Files\Apache\Maven
-:hammer_and_wrench: Step 2: Add Maven to Your System PATH
-Open Start Menu → Search → Edit system environment variables
-Click Environment Variables
-Under System Variables, find and select Path, then click Edit
-Click New and add the path to Maven’s bin folder:
-C:\Program Files\Apache\Maven\bin
-Click OK on all dialogs
-Close and reopen your terminal or Eclipse Terminal
-Run:
-bash
-mvn -v
-If it prints Maven version info, you’re good to go! :white_check_mark:
+1.	Go to the official download page:  
+2.	
+3.	Download the binary zip archive for Windows (e.g., apache-maven-3.9.x-bin.zip)
+4.	Extract it to a folder like: C:\Program Files\Apache\Maven
+  Step 2: Add Maven to Your System PATH
+1.	Open Start Menu → Search → Edit system environment variables
+2.	Click Environment Variables
+3.	Under System Variables, find and select Path, then click Edit
+4.	Click New and add the path to Maven’s bin folder:
+5.	C:\Program Files\Apache\Maven\bin
+6.	Click OK on all dialogs
+7.	Close and reopen your terminal or Eclipse Terminal
+8.	Run:
+9.	bash
+10.	mvn -v
+11.	If it prints Maven version info, you’re good to go!  
 Once Maven is installed and running, re-run:
 bash
 mvn clean install
-
-
-Kritika Panda
-  9:22 PM
+ 
+Kritika PandaKritika Panda  9:22 PM
 Step-by-Step Architecture
 We'll implement:
-Entity (CaseForm)
-Repository (CaseFormRepository)
-Service (CaseFormService)
-Controller (CaseFormController)
-(Optional) DTO if you want to customize request/response payload
-
-
-Kritika Panda
-  10:41 PM
+1.	Entity (CaseForm)
+2.	Repository (CaseFormRepository)
+3.	Service (CaseFormService)
+4.	Controller (CaseFormController)
+5.	(Optional) DTO if you want to customize request/response payload
+ 
+Kritika PandaKritika Panda  10:41 PM
 1. Switch to Eclipse’s Embedded Maven (or External One)
 Sometimes Eclipse’s internal Maven (m2e) conflicts with your system Maven. Let’s make sure it’s using the right one:
-Go to Window > Preferences
-Navigate to Maven > Installations
-If you see only one (embedded), click Add...
-Choose External
-Browse to:
-C:\Program Files\Apache\Maven\apache-maven-3.9.10
-Click Finish, then Apply and Close
-Select the external Maven and set it as default
+1.	Go to Window > Preferences
+2.	Navigate to Maven > Installations
+3.	If you see only one (embedded), click Add...
+o	Choose External
+4.	Browse to:
+o	C:\Program Files\Apache\Maven\apache-maven-3.9.10
+o	Click Finish, then Apply and Close
+5.	Select the external Maven and set it as default
 Then:
-Right-click your project → Maven > Update Project... → tick Force Update → OK
+Right-click your project → Maven > Update Project... → tick Force Update → 
